@@ -1,20 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tubes Cursor</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Creative Path — yasser.help</title>
 
-  <body>
-    <div id="app">
-      <canvas id="canvas"></canvas>
-      <div class="hero">
-        <h1>yasser</h1>
+  <!-- GSAP for polished animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+
+  <!-- main stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="left">
+      <div class="brand">yasser.help</div>
+      <div class="sub">THE CREATIVE PATH • v1.0</div>
+
+      <div class="stat">
+        <div class="label">STATUS</div><div id="status" class="value">READY</div>
+      </div>
+      <div class="stat">
+        <div class="label">LEVEL</div><div id="level" class="value">1</div>
+      </div>
+      <div class="stat">
+        <div class="label">LOGOS</div><div id="logos" class="value">0</div>
+      </div>
+
+      <div class="control-group">
+        <div class="label-row"><span>Speed</span><span id="speedVal">1.0</span></div>
+        <input id="speed" type="range" min="0.5" max="2.4" step="0.1" value="1">
+      </div>
+
+      <div class="control-group">
+        <div class="label-row"><span>Grid</span><span id="gridVal">20</span></div>
+        <input id="grid" type="range" min="12" max="36" step="2" value="20">
+      </div>
+
+      <div class="control-group">
+        <div class="label-row"><span>Music</span><span id="musicVal">0.8</span></div>
+        <input id="music" type="range" min="0" max="1" step="0.05" value="0.8">
+      </div>
+
+      <div class="buttons-row">
+        <button id="btnStart" class="btn primary">START</button>
+        <button id="btnPause" class="btn ghost">PAUSE</button>
+      </div>
+
+      <div class="footer-note">
+        <small>Tip: collect golden logos (★) to unlock story fragments.</small>
+      </div>
+    </aside>
+
+    <main class="center">
+      <div class="canvas-wrap">
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+        <div class="hud" id="hud">Level: <span id="hudLevel">1</span> • Logos: <span id="hudLogos">0</span></div>
+      </div>
+      <!-- subtle particle layer -->
+      <div id="particles" class="particles"></div>
+    </main>
+
+    <aside class="right">
+      <div class="story">
+        <h3>CHALLENGE STORY</h3>
+        <p id="storyText">Your creative journey begins here. Each golden logo reveals a fragment of your path.</p>
+      </div>
+
+      <div class="terminal" id="terminal">
+        <div class="line accent">SYSTEM: THE CREATIVE PATH v1.0 INITIALIZED</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Modal Start -->
+  <div class="modal" id="modal">
+    <div class="modal-inner">
+      <div class="title">THE CREATIVE PATH</div>
+      <p class="meta">An interactive creative-snake experience — <strong>yasser.help</strong></p>
+      <div class="modal-actions">
+        <button id="modalStart" class="btn primary">Begin journey</button>
+        <button id="modalDemo" class="btn ghost">Demo (fast)</button>
       </div>
     </div>
+  </div>
 
-    <script type="module" src="script.js"></script>
-  </body>
+  <!-- Modal Game Over -->
+  <div class="modal gameover" id="modalGameOver" style="display:none">
+    <div class="modal-inner">
+      <h2>Journey Complete</h2>
+      <p>You collected <b id="finalLogos">0</b> logos</p>
+      <div class="modal-actions">
+        <button id="restartBtn" class="btn primary">Play again</button>
+        <button id="closeBtn" class="btn ghost">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- audio elements (set src to your assets if available) -->
+  <audio id="audioEat" preload="auto"></audio>
+  <audio id="audioLevel" preload="auto"></audio>
+  <audio id="audioBgm" loop preload="auto"></audio>
+
+  <!-- main script -->
+  <script src="script.js" defer></script>
+</body>
 </html>
